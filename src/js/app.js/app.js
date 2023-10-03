@@ -74,3 +74,38 @@ function openTab(tabName) {
 
 // Default tab
 openTab("tab1");
+const taskList = document.getElementById("task-list");
+const taskInput = document.getElementById("task-input");
+const addTaskButton = document.getElementById("add-task");
+
+addTaskButton.addEventListener("click", () => {
+    const taskText = taskInput.value.trim();
+    if (taskText) {
+        addTask(taskText);
+        taskInput.value = "";
+    }
+});
+
+taskInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        const taskText = taskInput.value.trim();
+        if (taskText) {
+            addTask(taskText);
+            taskInput.value = "";
+        }
+    }
+});
+
+function addTask(text) {
+    const taskItem = document.createElement("li");
+    taskItem.innerHTML = `
+        <span>${text}</span>
+        <button onclick="removeTask(this)">Sil</button>
+    `;
+    taskList.appendChild(taskItem);
+}
+
+function removeTask(button) {
+    const taskItem = button.parentElement;
+    taskList.removeChild(taskItem);
+}
